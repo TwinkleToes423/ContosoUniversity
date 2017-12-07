@@ -38,6 +38,7 @@ namespace ContosoUniversity.Controllers
                 .Include(i => i.Administrator)
                 .AsNoTracking()
                 .SingleOrDefaultAsync(m => m.DepartmentID == id);
+
             if (department == null)
             {
                 return NotFound();
@@ -78,7 +79,7 @@ namespace ContosoUniversity.Controllers
                 return NotFound();
             }
 
-            var department = await _context.Departments.SingleOrDefaultAsync(m => m.DepartmentID == id);
+            var department = await _context.Departments.Include(i => i.Administrator).AsNoTracking().SingleOrDefaultAsync(m => m.DepartmentID == id);
 
             if (department == null)
             {
